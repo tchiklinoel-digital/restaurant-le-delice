@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Le Délice de Lomé</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #fffaf3;
+      color: #29251f;
+    }
+
+    header {
+      background: #176b45;
+      color: white;
+      padding: 28px 18px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0 0 10px;
+      font-size: 30px;
+    }
+
+    header p {
+      margin: 0;
+    }
+
+    .intro {
+      padding: 25px 18px;
+      text-align: center;
+    }
+
+    .intro h2 {
+      color: #176b45;
+    }
+
+    .menu {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 18px;
+      padding: 0 16px 25px;
+      max-width: 700px;
+      margin: auto;
+    }
+
+    .plat {
+      background: white;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 3px 12px #00000012;
+      padding-bottom: 18px;
+    }
+
+    .photo {
+      background: #e8ddca;
+      font-size: 65px;
+      text-align: center;
+      padding: 22px;
+    }
+
+    .plat h3,
+    .plat p,
+    .plat strong {
+      margin-left: 18px;
+      margin-right: 18px;
+    }
+
+    .prix {
+      color: #176b45;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    button {
+      border: none;
+      border-radius: 8px;
+      padding: 13px 18px;
+      margin: 5px 18px;
+      background: #176b45;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .commande {
+      max-width: 700px;
+      margin: 0 auto 30px;
+      padding: 22px 18px;
+      background: white;
+      border-radius: 14px;
+    }
+
+    .commande h2 {
+      color: #176b45;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    input,
+    textarea,
+    select {
+      width: 100%;
+      padding: 13px;
+      margin-top: 7px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+      background: white;
+    }
+
+    #panier {
+      white-space: pre-line;
+      background: #f4f0e8;
+      padding: 12px;
+      border-radius: 8px;
+    }
+
+    .envoyer {
+      width: 100%;
+      margin: 20px 0 0;
+      background: #128c4a;
+    }
+
+    footer {
+      background: #176b45;
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>🍽️ Le Délice de Lomé</h1>
+    <p>De bons plats, préparés avec amour !</p>
+  </header>
+
+  <section class="intro">
+    <h2>Bienvenue chez nous !</h2>
+    <p>Choisissez vos plats et commandez facilement sur WhatsApp.</p>
+  </section>
+
+  <section class="menu">
+
+    <article class="plat">
+      <div class="photo">🍗</div>
+      <h3>Poulet braisé</h3>
+      <p>Poulet accompagné de sa garniture.</p>
+      <p class="prix">3 000 FCFA</p>
+      <button onclick="ajouter('Poulet braisé', 3000)">
+        Ajouter au panier
+      </button>
+    </article>
+
+    <article class="plat">
+      <div class="photo">🍚</div>
+      <h3>Riz au poulet</h3>
+      <p>Un plat savoureux et généreux.</p>
+      <p class="prix">2 000 FCFA</p>
+      <button onclick="ajouter('Riz au poulet', 2000)">
+        Ajouter au panier
+      </button>
+    </article>
+
+    <article class="plat">
+      <div class="photo">🍝</div>
+      <h3>Spaghettis</h3>
+      <p>Spaghettis préparés à la maison.</p>
+      <p class="prix">1 500 FCFA</p>
+      <button onclick="ajouter('Spaghettis', 1500)">
+        Ajouter au panier
+      </button>
+    </article>
+
+  </section>
+
+  <section class="commande">
+    <h2>🛒 Votre commande</h2>
+
+    <div id="panier">Aucun plat sélectionné.</div>
+
+    <p><strong>Total : <span id="total">0</span> FCFA</strong></p>
+
+    <label for="nom">Votre nom</label>
+    <input id="nom" type="text" placeholder="Votre nom" required>
+
+    <label for="telephone">Votre numéro de téléphone</label>
+    <input id="telephone" type="tel" placeholder="Votre numéro" required>
+
+    <label for="livraison">Mode de réception</label>
+    <select id="livraison">
+      <option>Livraison</option>
+      <option>Retrait au restaurant</option>
+    </select>
+
+    <label for="adresse">Adresse de livraison</label>
+    <input id="adresse" type="text" placeholder="Quartier et indications">
+
+    <label for="note">Précisions sur la commande</label>
+    <textarea id="note" rows="3" placeholder="Vos précisions (facultatif)"></textarea>
+
+    <button class="envoyer" onclick="commander()">
+      Commander sur WhatsApp
+    </button>
+  </section>
+
+  <footer>
+    <p>Le Délice de Lomé</p>
+    <p>Exemple de site de restaurant à Lomé, Togo.</p>
+  </footer>
+
+  <script>
+    const panier = {};
+
+    function ajouter(nom, prix) {
+      if (panier[nom]) {
+        panier[nom].quantite++;
+      } else {
+        panier[nom] = { prix: prix, quantite: 1 };
+      }
+
+      actualiserPanier();
+    }
+
+    function actualiserPanier() {
+      const noms = Object.keys(panier);
+      let total = 0;
+
+      if (noms.length === 0) {
+        document.getElementById('panier').textContent =
+          'Aucun plat sélectionné.';
+      } else {
+        const lignes = noms.map(nom => {
+          const plat = panier[nom];
+          const sousTotal = plat.prix * plat.quantite;
+          total += sousTotal;
+
+          return nom + ' x ' + plat.quantite +
+            ' = ' + sousTotal + ' FCFA';
+        });
+
+        document.getElementById('panier').textContent =
+          lignes.join('\n');
+      }
+
+      document.getElementById('total').textContent =
+        total.toLocaleString('fr-FR');
+    }
+
+    function commander() {
+      const noms = Object.keys(panier);
+
+      if (noms.length === 0) {
+        alert('Veuillez choisir au moins un plat.');
+        return;
+      }
+
+      const nom = document.getElementById('nom').value.trim();
+      const telephone = document.getElementById('telephone').value.trim();
+      const livraison = document.getElementById('livraison').value;
+      const adresse = document.getElementById('adresse').value.trim();
+      const note = document.getElementById('note').value.trim();
+
+      if (!nom || !telephone) {
+        alert('Veuillez renseigner votre nom et votre numéro.');
+        return;
+      }
+
+      if (livraison === 'Livraison' && !adresse) {
+        alert('Veuillez indiquer votre adresse de livraison.');
+        return;
+      }
+
+      let total = 0;
+      let message = 'Bonjour, je souhaite passer une commande :\n\n';
+
+      noms.forEach(nomPlat => {
+        const plat = panier[nomPlat];
+        const sousTotal = plat.prix * plat.quantite;
+        total += sousTotal;
+
+        message += nomPlat + ' x ' + plat.quantite +
+          ' : ' + sousTotal + ' FCFA\n';
+      });
+
+      message += '\nTotal des plats : ' + total + ' FCFA';
+      message += '\nNom : ' + nom;
+      message += '\nTéléphone : ' + telephone;
+      message += '\nRéception : ' + livraison;
+
+      if (adresse) {
+        message += '\nAdresse : ' + adresse;
+      }
+
+      if (note) {
+        message += '\nPrécisions : ' + note;
+      }
+
+      // Remplacer ce numéro de démonstration par celui du restaurant.
+      const numeroRestaurant = '22890000000';
+
+      const url = 'https://wa.me/' + numeroRestaurant +
+        '?text=' + encodeURIComponent(message);
+
+      window.open(url, '_blank');
+    }
+  </script>
+
+</body>
+</html>
